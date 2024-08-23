@@ -20,7 +20,7 @@ def get_whois(domain):
 
 def get_dns_records(domain):
     records = {}
-    for record_type in ['A', 'MX', 'TXT', 'NS', 'SOA']:
+    for record_type in ["A", "MX", "TXT", "NS", "SOA"]:
         try:
             answers = dns.resolver.resolve(domain, record_type)
             records[record_type] = [str(r) for r in answers]
@@ -38,7 +38,7 @@ def get_ssl_certificate(domain):
                 return {
                     "issuer": cert.get("issuer"),
                     "notBefore": cert.get("notBefore"),
-                    "notAfter": cert.get("notAfter")
+                    "notAfter": cert.get("notAfter"),
                 }
     except Exception as e:
         return str(e)
@@ -46,7 +46,7 @@ def get_ssl_certificate(domain):
 
 def check_dnssec(domain):
     try:
-        answers = dns.resolver.resolve(domain, 'DNSKEY')
+        answers = dns.resolver.resolve(domain, "DNSKEY")
         return True if answers else False
     except Exception as e:
         return str(e)
@@ -54,7 +54,7 @@ def check_dnssec(domain):
 
 def get_email_security_records(domain):
     records = {}
-    for record_type in ['SPF', 'DMARC']:
+    for record_type in ["SPF", "DMARC"]:
         try:
             answers = dns.resolver.resolve(domain, record_type)
             records[record_type] = [str(r) for r in answers]
@@ -75,7 +75,7 @@ def measure_website_performance(domain):
     try:
         response = requests.get(f"http://{domain}")
         timing = response.elapsed.total_seconds()
-        return {'load_time_seconds': timing}
+        return {"load_time_seconds": timing}
     except requests.RequestException as e:
         return str(e)
 
@@ -161,7 +161,11 @@ def ping_latency(ip, count=4):
     if shutil.which("ping"):
         try:
             output = subprocess.run(
-                ["ping", "-c", str(count), ip], capture_output=True, text=True, check=True)
+                ["ping", "-c", str(count), ip],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
             return output.stdout
         except subprocess.CalledProcessError as e:
             return f"Error: {str(e)}"
