@@ -2,7 +2,8 @@ import shutil
 import socket
 import ssl
 import subprocess
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import as_completed
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 
 import dns.resolver
