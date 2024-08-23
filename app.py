@@ -16,7 +16,7 @@ import whois
 def get_whois(domain):
     """
 
-    :param domain: 
+    :param domain:
 
     """
     try:
@@ -28,7 +28,7 @@ def get_whois(domain):
 def get_dns_records(domain):
     """
 
-    :param domain: 
+    :param domain:
 
     """
     records = {}
@@ -44,7 +44,7 @@ def get_dns_records(domain):
 def get_ssl_certificate(domain):
     """
 
-    :param domain: 
+    :param domain:
 
     """
     try:
@@ -64,7 +64,7 @@ def get_ssl_certificate(domain):
 def check_dnssec(domain):
     """
 
-    :param domain: 
+    :param domain:
 
     """
     try:
@@ -77,7 +77,7 @@ def check_dnssec(domain):
 def get_email_security_records(domain):
     """
 
-    :param domain: 
+    :param domain:
 
     """
     records = {}
@@ -93,7 +93,7 @@ def get_email_security_records(domain):
 def check_website_content(domain):
     """
 
-    :param domain: 
+    :param domain:
 
     """
     try:
@@ -106,7 +106,7 @@ def check_website_content(domain):
 def measure_website_performance(domain):
     """
 
-    :param domain: 
+    :param domain:
 
     """
     try:
@@ -130,7 +130,7 @@ print("Website Performance:", measure_website_performance(domain))
 def get_reverse_dns(ip):
     """
 
-    :param ip: 
+    :param ip:
 
     """
     try:
@@ -142,7 +142,7 @@ def get_reverse_dns(ip):
 def get_ip_geolocation(ip):
     """
 
-    :param ip: 
+    :param ip:
 
     """
     try:
@@ -155,8 +155,8 @@ def get_ip_geolocation(ip):
 def check_port(ip, port, timeout=1):
     """
 
-    :param ip: 
-    :param port: 
+    :param ip:
+    :param port:
     :param timeout:  (Default value = 1)
 
     """
@@ -170,7 +170,7 @@ def check_port(ip, port, timeout=1):
 def scan_open_ports(ip, ports_range=100, max_threads=50):
     """
 
-    :param ip: 
+    :param ip:
     :param ports_range:  (Default value = 100)
     :param max_threads:  (Default value = 50)
 
@@ -189,7 +189,7 @@ def scan_open_ports(ip, ports_range=100, max_threads=50):
 def get_whois_info(ip):
     """
 
-    :param ip: 
+    :param ip:
 
     """
     try:
@@ -203,7 +203,7 @@ def get_whois_info(ip):
 def get_ssl_certificate(ip, port=443):
     """
 
-    :param ip: 
+    :param ip:
     :param port:  (Default value = 443)
 
     """
@@ -220,8 +220,8 @@ def get_ssl_certificate(ip, port=443):
 def grab_banner(ip, port, timeout=2):
     """
 
-    :param ip: 
-    :param port: 
+    :param ip:
+    :param port:
     :param timeout:  (Default value = 2)
 
     """
@@ -239,7 +239,7 @@ def grab_banner(ip, port, timeout=2):
 def ping_latency(ip, count=4):
     """
 
-    :param ip: 
+    :param ip:
     :param count:  (Default value = 4)
 
     """
