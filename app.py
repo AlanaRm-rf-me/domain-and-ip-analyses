@@ -1,14 +1,15 @@
+import shutil
 import socket
-import whois
+import ssl
+import subprocess
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime
+
 import dns.resolver
 import httpx
-import ssl
-import requests
 import ipwhois
-import subprocess
-import shutil
-from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import requests
+import whois
 
 
 def get_whois(domain):
