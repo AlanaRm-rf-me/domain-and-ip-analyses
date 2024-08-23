@@ -13,6 +13,11 @@ import whois
 
 
 def get_whois(domain):
+    """
+
+    :param domain: 
+
+    """
     try:
         return whois.whois(domain)
     except Exception as e:
@@ -20,6 +25,11 @@ def get_whois(domain):
 
 
 def get_dns_records(domain):
+    """
+
+    :param domain: 
+
+    """
     records = {}
     for record_type in ["A", "MX", "TXT", "NS", "SOA"]:
         try:
@@ -31,6 +41,11 @@ def get_dns_records(domain):
 
 
 def get_ssl_certificate(domain):
+    """
+
+    :param domain: 
+
+    """
     try:
         context = ssl.create_default_context()
         with socket.create_connection((domain, 443)) as sock:
@@ -46,6 +61,11 @@ def get_ssl_certificate(domain):
 
 
 def check_dnssec(domain):
+    """
+
+    :param domain: 
+
+    """
     try:
         answers = dns.resolver.resolve(domain, "DNSKEY")
         return True if answers else False
@@ -54,6 +74,11 @@ def check_dnssec(domain):
 
 
 def get_email_security_records(domain):
+    """
+
+    :param domain: 
+
+    """
     records = {}
     for record_type in ["SPF", "DMARC"]:
         try:
@@ -65,6 +90,11 @@ def get_email_security_records(domain):
 
 
 def check_website_content(domain):
+    """
+
+    :param domain: 
+
+    """
     try:
         response = requests.get(f"http://{domain}")
         return response.text[:1000]
@@ -73,6 +103,11 @@ def check_website_content(domain):
 
 
 def measure_website_performance(domain):
+    """
+
+    :param domain: 
+
+    """
     try:
         response = requests.get(f"http://{domain}")
         timing = response.elapsed.total_seconds()
@@ -92,6 +127,11 @@ print("Website Performance:", measure_website_performance(domain))
 
 
 def get_reverse_dns(ip):
+    """
+
+    :param ip: 
+
+    """
     try:
         return socket.gethostbyaddr(ip)
     except socket.herror:
@@ -99,6 +139,11 @@ def get_reverse_dns(ip):
 
 
 def get_ip_geolocation(ip):
+    """
+
+    :param ip: 
+
+    """
     try:
         response = httpx.get(f"https://ipinfo.io/{ip}/json")
         return response.json()
@@ -107,6 +152,13 @@ def get_ip_geolocation(ip):
 
 
 def check_port(ip, port, timeout=1):
+    """
+
+    :param ip: 
+    :param port: 
+    :param timeout:  (Default value = 1)
+
+    """
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         sock.settimeout(timeout)
         if sock.connect_ex((ip, port)) == 0:
@@ -115,6 +167,13 @@ def check_port(ip, port, timeout=1):
 
 
 def scan_open_ports(ip, ports_range=100, max_threads=50):
+    """
+
+    :param ip: 
+    :param ports_range:  (Default value = 100)
+    :param max_threads:  (Default value = 50)
+
+    """
     ports = range(1, ports_range + 1)
     open_ports = []
     with ThreadPoolExecutor(max_workers=max_threads) as executor:
@@ -127,6 +186,11 @@ def scan_open_ports(ip, ports_range=100, max_threads=50):
 
 
 def get_whois_info(ip):
+    """
+
+    :param ip: 
+
+    """
     try:
         obj = ipwhois.IPWhois(ip)
         results = obj.lookup_rdap(depth=1)
@@ -136,6 +200,12 @@ def get_whois_info(ip):
 
 
 def get_ssl_certificate(ip, port=443):
+    """
+
+    :param ip: 
+    :param port:  (Default value = 443)
+
+    """
     try:
         context = ssl.create_default_context()
         with socket.create_connection((ip, port)) as sock:
@@ -147,6 +217,13 @@ def get_ssl_certificate(ip, port=443):
 
 
 def grab_banner(ip, port, timeout=2):
+    """
+
+    :param ip: 
+    :param port: 
+    :param timeout:  (Default value = 2)
+
+    """
     try:
         s = socket.socket()
         s.settimeout(timeout)
@@ -159,6 +236,12 @@ def grab_banner(ip, port, timeout=2):
 
 
 def ping_latency(ip, count=4):
+    """
+
+    :param ip: 
+    :param count:  (Default value = 4)
+
+    """
     if shutil.which("ping"):
         try:
             output = subprocess.run(
