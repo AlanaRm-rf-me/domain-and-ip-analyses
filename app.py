@@ -10,11 +10,13 @@ import shutil
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+
 def get_whois(domain):
     try:
         return whois.whois(domain)
     except Exception as e:
         return str(e)
+
 
 def get_dns_records(domain):
     records = {}
@@ -25,6 +27,7 @@ def get_dns_records(domain):
         except Exception as e:
             records[record_type] = str(e)
     return records
+
 
 def get_ssl_certificate(domain):
     try:
@@ -40,12 +43,14 @@ def get_ssl_certificate(domain):
     except Exception as e:
         return str(e)
 
+
 def check_dnssec(domain):
     try:
         answers = dns.resolver.resolve(domain, 'DNSKEY')
         return True if answers else False
     except Exception as e:
         return str(e)
+
 
 def get_email_security_records(domain):
     records = {}
@@ -57,12 +62,14 @@ def get_email_security_records(domain):
             records[record_type] = str(e)
     return records
 
+
 def check_website_content(domain):
     try:
         response = requests.get(f"http://{domain}")
-        return response.text[:1000] 
+        return response.text[:1000]
     except requests.RequestException as e:
         return str(e)
+
 
 def measure_website_performance(domain):
     try:
@@ -71,6 +78,7 @@ def measure_website_performance(domain):
         return {'load_time_seconds': timing}
     except requests.RequestException as e:
         return str(e)
+
 
 domain = "example.com"
 print("WHOIS:", get_whois(domain))
@@ -81,11 +89,13 @@ print("SPF And DMARC Records:", get_email_security_records(domain))
 print("Website Content Preview:", check_website_content(domain))
 print("Website Performance:", measure_website_performance(domain))
 
+
 def get_reverse_dns(ip):
     try:
         return socket.gethostbyaddr(ip)
     except socket.herror:
         return None
+
 
 def get_ip_geolocation(ip):
     try:
@@ -94,12 +104,14 @@ def get_ip_geolocation(ip):
     except Exception as e:
         return str(e)
 
+
 def check_port(ip, port, timeout=1):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         sock.settimeout(timeout)
         if sock.connect_ex((ip, port)) == 0:
             return port
     return None
+
 
 def scan_open_ports(ip, ports_range=100, max_threads=50):
     ports = range(1, ports_range + 1)
@@ -112,6 +124,7 @@ def scan_open_ports(ip, ports_range=100, max_threads=50):
                 open_ports.append(result)
     return open_ports
 
+
 def get_whois_info(ip):
     try:
         obj = ipwhois.IPWhois(ip)
@@ -119,6 +132,7 @@ def get_whois_info(ip):
         return results
     except Exception as e:
         return str(e)
+
 
 def get_ssl_certificate(ip, port=443):
     try:
@@ -129,6 +143,7 @@ def get_ssl_certificate(ip, port=443):
                 return cert
     except Exception as e:
         return str(e)
+
 
 def grab_banner(ip, port, timeout=2):
     try:
@@ -141,15 +156,18 @@ def grab_banner(ip, port, timeout=2):
     except Exception as e:
         return str(e)
 
+
 def ping_latency(ip, count=4):
     if shutil.which("ping"):
         try:
-            output = subprocess.run(["ping", "-c", str(count), ip], capture_output=True, text=True, check=True)
+            output = subprocess.run(
+                ["ping", "-c", str(count), ip], capture_output=True, text=True, check=True)
             return output.stdout
         except subprocess.CalledProcessError as e:
             return f"Error: {str(e)}"
     else:
         return "Error: ping command not available"
+
 
 ip = "8.8.8.8"
 port = 80
