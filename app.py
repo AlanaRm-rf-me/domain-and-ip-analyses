@@ -6,6 +6,7 @@ import ssl
 import requests
 import ipwhois
 import subprocess
+import shutil
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -141,11 +142,14 @@ def grab_banner(ip, port, timeout=2):
         return str(e)
 
 def ping_latency(ip, count=4):
-    try:
-        output = subprocess.run(["ping", "-c", str(count), ip], capture_output=True, text=True)
-        return output.stdout
-    except subprocess.CalledProcessError as e:
-        return str(e)
+    if shutil.which("ping"):
+        try:
+            output = subprocess.run(["ping", "-c", str(count), ip], capture_output=True, text=True, check=True)
+            return output.stdout
+        except subprocess.CalledProcessError as e:
+            return f"Error: {str(e)}"
+    else:
+        return "Error: ping command not available"
 
 ip = "8.8.8.8"
 port = 80

@@ -1,5 +1,6 @@
-whois==0.9.13
-dnspython==2.3.0
-httpx==0.24.0
-requests==2.28.1
+python-whois==0.8.0
+dnspython==2.0.0
+httpx==0.24.1
+requests==2.30.0
 ipwhois==1.2.0
+# Updated requirements.txt to updated versions
