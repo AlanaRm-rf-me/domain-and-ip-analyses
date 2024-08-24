@@ -202,10 +202,10 @@ protocol_frame.grid(row=2, column=0, columnspan=3, pady=5)
 
 protocol_var = tk.StringVar(value="https")  # Default to HTTPS
 
-http_radio = tk.Radiobutton(protocol_frame, text="HTTP", variable=protocol_var, value="http", bg='#1E90FF', fg='white')
+http_radio = ttk.Radiobutton(protocol_frame, text="HTTP", variable=protocol_var, value="http")
 http_radio.pack(side=tk.LEFT)
 
-https_radio = tk.Radiobutton(protocol_frame, text="HTTPS", variable=protocol_var, value="https", bg='#1E90FF', fg='white')
+https_radio = ttk.Radiobutton(protocol_frame, text="HTTPS", variable=protocol_var, value="https")
 https_radio.pack(side=tk.LEFT)
 
 # Tooltip with a question mark
