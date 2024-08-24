@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import scrolledtext, filedialog, messagebox
+from tkinter import scrolledtext, filedialog, messagebox, ttk
 import socket
 import whois
 import dns.resolver
@@ -147,7 +147,7 @@ def ping_latency(ip, count=4):
 
 def run_domain_check(domain):
     if not domain.startswith(("http://", "https://")):
-        domain = "http://" + domain
+        domain = protocol_var.get() + "://" + domain
 
     output_text.delete(1.0, tk.END)  # Clear previous output
     output_text.insert(tk.END, f"WHOIS: {get_whois(domain)}\n")
@@ -196,6 +196,28 @@ root.configure(bg='#1E90FF')
 domain_frame = tk.LabelFrame(root, text="Domain Check", bg='#1E90FF', fg='white', padx=10, pady=10)
 domain_frame.pack(padx=10, pady=10, fill="both", expand="yes")
 
+# HTTP/HTTPS Toggle Section in the Domain Frame
+protocol_frame = tk.Frame(domain_frame, bg='#1E90FF')
+protocol_frame.grid(row=2, column=0, columnspan=3, pady=5)
+
+protocol_var = tk.StringVar(value="https")  # Default to HTTPS
+
+http_radio = tk.Radiobutton(protocol_frame, text="HTTP", variable=protocol_var, value="http", bg='#1E90FF', fg='white')
+http_radio.pack(side=tk.LEFT)
+
+https_radio = tk.Radiobutton(protocol_frame, text="HTTPS", variable=protocol_var, value="https", bg='#1E90FF', fg='white')
+https_radio.pack(side=tk.LEFT)
+
+# Tooltip with a question mark
+tooltip_label = tk.Label(protocol_frame, text="?", bg='#4682B4', fg='white', cursor="question_arrow", font=("Arial", 10, "bold"))
+tooltip_label.pack(side=tk.LEFT, padx=5)
+
+# Tooltip Function
+def show_tooltip():
+    messagebox.showinfo("Protocol Selection", "This option only matters if the domain entered does not include HTTP or HTTPS.")
+
+tooltip_label.bind("<Button-1>", lambda e: show_tooltip())
+
 domain_label = tk.Label(domain_frame, text="Enter Domain:", bg='#1E90FF', fg='white')
 domain_label.grid(row=0, column=0, pady=5)
 
@@ -218,6 +240,9 @@ example_btn.pack(side=tk.LEFT, padx=5)
 github_btn = tk.Button(example_frame, text="GitHub.com", command=lambda: example_domain("github.com"), bg='#4682B4', fg='white')
 github_btn.pack(side=tk.LEFT, padx=5)
 
+mattyjacks_btn = tk.Button(example_frame, text="MattyJacks.com", command=lambda: example_domain("mattyjacks.com"), bg='#4682B4', fg='white')
+mattyjacks_btn.pack(side=tk.LEFT, padx=5)
+
 # IP and Port Section
 ip_frame = tk.LabelFrame(root, text="IP + Port Check", bg='#1E90FF', fg='white', padx=10, pady=10)
 ip_frame.pack(padx=10, pady=10, fill="both", expand="yes")
@@ -236,6 +261,16 @@ port_entry.grid(row=0, column=3, pady=5)
 
 check_ip_btn = tk.Button(ip_frame, text="Check IP + Port", command=lambda: run_ip_check(ip_entry.get(), int(port_entry.get())), bg='#4682B4', fg='white')
 check_ip_btn.grid(row=0, column=4, padx=10)
+
+# Example IPs and Ports Buttons in the IP Frame
+ip_example_frame = tk.Frame(ip_frame, bg='#1E90FF')
+ip_example_frame.grid(row=1, columnspan=5, pady=10)
+
+ip1_btn = tk.Button(ip_example_frame, text="8.8.8.8 port 80", command=lambda: [ip_entry.delete(0, tk.END), ip_entry.insert(0, "8.8.8.8"), port_entry.delete(0, tk.END), port_entry.insert(0, "80")], bg='#4682B4', fg='white')
+ip1_btn.pack(side=tk.LEFT, padx=5)
+
+ip2_btn = tk.Button(ip_example_frame, text="1.1.1.1 port 80", command=lambda: [ip_entry.delete(0, tk.END), ip_entry.insert(0, "1.1.1.1"), port_entry.delete(0, tk.END), port_entry.insert(0, "80")], bg='#4682B4', fg='white')
+ip2_btn.pack(side=tk.LEFT, padx=5)
 
 # Output Section
 output_frame = tk.LabelFrame(root, text="Output", bg='#1E90FF', fg='white', padx=10, pady=10)
