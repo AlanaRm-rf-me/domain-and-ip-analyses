@@ -1,6 +1,6 @@
 # Website Domain And IP Address Analyses
 Using your CLI, learn detailed information about a specific domain and/or IP address.
-
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/{Alanarm-rf-me}/{domain-and-ip-analyses}/CI?label=build)
 ## Set Up
 
 ### Programs Needed 
