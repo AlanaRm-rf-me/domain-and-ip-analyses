@@ -1,5 +1,5 @@
 whois==0.9.13
 dnspython==2.6.1
 httpx==0.24.0
-requests==2.28.1
+requests==2.32.2
 ipwhois==1.2.0
